@@ -4,5 +4,9 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
+linto:fontawesome
+jquery
+less
+mizzao:bootstrap-3
+mrt:moment
+
