@@ -32,8 +32,14 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-lg-9 col-lg-offset-3">
-						<button id="addReport" class="btn btn-primary btn-lg btn-block">Lisa</button>
+					<div class="col-lg-3">
+						<div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+							<button id="up" type="button" class="btn btn-success {{active 'up'}}"><i class="fa fa-thumbs-up"></i></button>
+							<button id="down" type="button" class="btn btn-danger {{active 'down'}}"><i class="fa fa-thumbs-down"></i></button>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<button id="addReport" class="btn {{addType}} btn-lg btn-block">Lisa</button>
 					</div>
 				</div>
 			</fieldset>
@@ -50,8 +56,8 @@
 			{{/if}}
 		</legend>
 		{{#each reports}}
-			<div class="panel panel-default">
-				<div class="panel-heading">{{regNo}}<span class="pull-right label label-primary">{{time}}</span></div>
+			<div class="panel {{moodClass}}">
+				<div class="panel-heading"><h3 class="panel-title">{{regNo}}<span style="font-size: 12px; padding-top: 2px;" class="pull-right text-muted">{{time}}</span></h3></div>
 				<div class="panel-body comment">
 					{{comment}}
 				</div>

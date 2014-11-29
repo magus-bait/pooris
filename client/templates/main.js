@@ -2,6 +2,7 @@ var defaultLabel = 'Viimased teated';
 Session.set('filter', {});
 Session.set('charCount', 200);
 Session.set('filterLabel', defaultLabel);
+Session.set('mood', 'up');
 
 Template.reports.helpers({
 	reports: function () {
@@ -13,8 +14,11 @@ Template.reports.helpers({
 	filterLabel: function () {
 		return Session.get('filterLabel');
 	},
-	filterActive: function() {
+	filterActive: function () {
 		return Session.get('filterLabel') !== defaultLabel;
+	},
+	moodClass: function () {
+		return this.mood == 'up' ? 'panel-success' : 'panel-danger';
 	}
 });
 
@@ -30,8 +34,14 @@ Template.addReport.helpers({
 	error: function (field) {
 		return Session.get('error-' + field) ? 'has-error' : undefined;
 	},
-	charCount: function() {
+	charCount: function () {
 		return Session.get('charCount');
+	},
+	active: function (state) {
+		return Session.get('mood') == state ? 'active' : undefined;
+	},
+	addType: function () {
+		return Session.get('mood') == 'up' ? 'btn-success' : 'btn-danger';
 	}
 });
 
@@ -44,6 +54,12 @@ Template.reports.events({
 });
 
 Template.addReport.events({
+	'click #up': function (e, t) {
+		Session.set('mood', 'up');
+	},
+	'click #down': function (e, t) {
+		Session.set('mood', 'down');
+	},
 	'click #searchReports': function (e, t) {
 		e.preventDefault();
 		var regNo = $(t.find("input[name=regNo]")).val();
@@ -87,7 +103,8 @@ Template.addReport.events({
 		if (valid) {
 			Meteor.call('insertReport', {
 				regNo: regNo,
-				comment: comment
+				comment: comment,
+				mood: Session.get('mood')
 			}, function() {
 				console.log('inserted');
 				$(t.find("form"))[0].reset();
