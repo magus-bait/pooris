@@ -9,7 +9,7 @@ Template.reports.helpers({
 		return Reports.find(Session.get('filter'), {sort: {createDate: -1}});
 	},
 	time: function () {
-		return moment(this.time).format('D.M.YYYY H:mm:ss');
+		return moment(this.createDate).format('D.M.YYYY H:mm:ss');
 	},
 	filterLabel: function () {
 		return Session.get('filterLabel');
